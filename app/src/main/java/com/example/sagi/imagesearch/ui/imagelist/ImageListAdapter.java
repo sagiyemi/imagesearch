@@ -1,4 +1,4 @@
-package com.example.sagi.imagesearch.ui;
+package com.example.sagi.imagesearch.ui.imagelist;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

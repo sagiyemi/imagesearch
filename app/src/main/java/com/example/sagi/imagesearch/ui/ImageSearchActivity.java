@@ -3,6 +3,8 @@ package com.example.sagi.imagesearch.ui;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.sagi.imagesearch.ui.imagelist.ImageListFragment;
+
 public class ImageSearchActivity extends AppCompatActivity {
 
     @Override

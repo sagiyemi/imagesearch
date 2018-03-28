@@ -1,4 +1,4 @@
-package com.example.sagi.imagesearch.ui;
+package com.example.sagi.imagesearch.ui.imagelist;
 
 import com.example.sagi.imagesearch.data.model.ImageEntity;
 import com.example.sagi.imagesearch.ui.base.MvpView;

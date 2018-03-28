@@ -1,6 +1,6 @@
 package com.example.sagi.imagesearch;
 
-import com.example.sagi.imagesearch.ui.ImageListFragment;
+import com.example.sagi.imagesearch.ui.imagelist.ImageListFragment;
 
 import javax.inject.Singleton;
 
