@@ -1,4 +1,4 @@
-package com.example.sagi.imagesearch.model;
+package com.example.sagi.imagesearch.data.model;
 
 import com.google.gson.annotations.SerializedName;
 

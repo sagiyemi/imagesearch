@@ -1,6 +1,6 @@
-package com.example.sagi.imagesearch.service;
+package com.example.sagi.imagesearch.data.remote;
 
-import com.example.sagi.imagesearch.model.ImageSearchResponse;
+import com.example.sagi.imagesearch.data.model.ImageSearchResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

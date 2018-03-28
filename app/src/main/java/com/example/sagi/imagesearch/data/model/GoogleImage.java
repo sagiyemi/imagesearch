@@ -1,4 +1,4 @@
-package com.example.sagi.imagesearch.model;
+package com.example.sagi.imagesearch.data.model;
 
 /**
  * Created by sagiyemini on 24/03/2018.

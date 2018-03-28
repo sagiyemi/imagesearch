@@ -1,10 +1,10 @@
-package com.example.sagi.imagesearch.service;
+package com.example.sagi.imagesearch.data.remote;
 
 import android.util.Log;
 
 import com.example.sagi.imagesearch.BuildConfig;
-import com.example.sagi.imagesearch.model.GoogleImage;
-import com.example.sagi.imagesearch.model.ImageSearchResponse;
+import com.example.sagi.imagesearch.data.model.GoogleImage;
+import com.example.sagi.imagesearch.data.model.ImageSearchResponse;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.sagi.imagesearch.db;
+package com.example.sagi.imagesearch.data.local;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.db.SupportSQLiteOpenHelper;
