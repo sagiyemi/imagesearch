@@ -14,6 +14,9 @@ import javax.inject.Inject;
 
 public class ImageListPresenter extends BasePresenter<ImageListMvpView> {
 
+    private static final String SEARCH_TERM = "example";
+    private int mCurrentPage = 1;
+
     private final DataManager mDataManager;
 
     @Inject
@@ -26,12 +29,22 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> {
         super.attachView(mvpView);
 
         syncImageList();
+        getImageList();
     }
 
     private void syncImageList() {
         Log.d("ImageListPresenter", "syncImageList");
-        mDataManager.syncImageSearch()
+        mDataManager.syncImagesPage(SEARCH_TERM, mCurrentPage)
                 .compose(Util.applySchedulers())
                 .subscribe();
+    }
+
+    private void getImageList() {
+        mDataManager.getImages(SEARCH_TERM)
+                .compose(Util.applySchedulers())
+                .subscribe(images -> {
+                    Log.d("ImageListPresenter", "Images " + images);
+                });
+
     }
 }

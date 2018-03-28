@@ -1,6 +1,7 @@
 package com.example.sagi.imagesearch.data.model;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Parcelable;
 
 import com.gabrielittner.auto.value.cursor.ColumnAdapter;
@@ -22,6 +23,10 @@ public abstract class GoogleImage implements Parcelable {
 
     public static GoogleImage create(String title, Image image) {
         return new AutoValue_GoogleImage(title, image);
+    }
+
+    public static GoogleImage create(Cursor cursor) {
+        return AutoValue_GoogleImage.createFromCursor(cursor);
     }
 
     public static TypeAdapter<GoogleImage> typeAdapter(Gson gson) {
