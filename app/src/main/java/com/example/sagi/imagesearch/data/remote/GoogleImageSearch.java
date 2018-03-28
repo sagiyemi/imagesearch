@@ -1,9 +1,8 @@
 package com.example.sagi.imagesearch.data.remote;
 
-import android.content.Context;
-
 import com.example.sagi.imagesearch.BuildConfig;
 import com.example.sagi.imagesearch.data.model.ImageSearchResponse;
+import com.google.gson.GsonBuilder;
 
 import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
@@ -31,7 +30,8 @@ public interface GoogleImageSearch {
 
     class Factory {
 
-        public static GoogleImageSearch makeGoogleImageSearch(Context context) {
+        public static GoogleImageSearch makeGoogleImageSearch() {
+
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY
                     : HttpLoggingInterceptor.Level.NONE);
@@ -40,10 +40,14 @@ public interface GoogleImageSearch {
                     .addInterceptor(logging)
                     .build();
 
+            GsonConverterFactory gsonConverterFactory = GsonConverterFactory.create(
+                    new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create())
+                            .create());
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(API_URL)
                     .client(okHttpClient)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(gsonConverterFactory)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
 

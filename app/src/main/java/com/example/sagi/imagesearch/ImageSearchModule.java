@@ -36,7 +36,7 @@ public final class ImageSearchModule {
     @Provides
     @Singleton
     GoogleImageSearch provideGoogleImageSearch() {
-        return GoogleImageSearch.Factory.makeGoogleImageSearch(mApplication);
+        return GoogleImageSearch.Factory.makeGoogleImageSearch();
     }
 
 }

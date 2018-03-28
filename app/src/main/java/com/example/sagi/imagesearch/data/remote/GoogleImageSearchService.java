@@ -28,8 +28,12 @@ public class GoogleImageSearchService {
     public Observable<List<GoogleImage>> getImages() {
         return mImageSearch.getImages(10, 1, "example")
                 .map(imageSearchResponse -> {
-                    Log.d("Service", "Got " + imageSearchResponse.images.size());
-                    return imageSearchResponse.images;
+                    List<GoogleImage> images = imageSearchResponse.images;
+                    for (GoogleImage image : images) {
+                        Log.d("Service", "Image" + image);
+                    }
+                    Log.d("Service", "Got " + images.size());
+                    return images;
 
                 });
     }
