@@ -18,10 +18,23 @@ public class DbCallback extends SupportSQLiteOpenHelper.Callback {
     @Override
     public void onCreate(SupportSQLiteDatabase db) {
 
+        createTables(db);
+
     }
 
     @Override
     public void onUpgrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
+    private void createTables(SupportSQLiteDatabase db) {
+        db.beginTransaction();
+        try {
+            db.execSQL(Db.GoogleImageTable.CREATE);
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+    }
+
 }

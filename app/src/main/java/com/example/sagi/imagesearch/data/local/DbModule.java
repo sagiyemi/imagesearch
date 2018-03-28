@@ -28,12 +28,7 @@ public final class DbModule {
     @Singleton
     SqlBrite provideSqlBrite() {
         return new SqlBrite.Builder()
-                .logger(new SqlBrite.Logger() {
-                    @Override
-                    public void log(String message) {
-                        Log.v("Database", message);
-                    }
-                })
+                .logger(message -> Log.v("Database", message))
                 .build();
     }
 
