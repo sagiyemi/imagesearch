@@ -25,17 +25,23 @@ public class Db {
         public static final String COLUMN_CONTEXT_LINK = "context_link";
         public static final String COLUMN_HEIGHT = "height";
         public static final String COLUMN_WIDTH = "width";
+        public static final String COLUMN_THUMBNAIL_LINK = "thumbnail_link";
+        public static final String COLUMN_THUMBNAIL_HEIGHT = "thumbnail_height";
+        public static final String COLUMN_THUMBNAIL_WIDTH = "thumbnail_width";
 
         public static final String CREATE =
                 "CREATE TABLE " + TABLE_NAME
                         + " ("
-                         + COLUMN_SEARCH_TERM + TEXT
+                        + COLUMN_SEARCH_TERM + TEXT
                         + "," + COLUMN_PAGE_NUMBER + INTEGER
                         + "," + COLUMN_LINK + TEXT + PRIMARY_KEY
                         + "," + COLUMN_TITLE + TEXT
                         + "," + COLUMN_CONTEXT_LINK + TEXT
                         + "," + COLUMN_HEIGHT + INTEGER
                         + "," + COLUMN_WIDTH + INTEGER
+                        + "," + COLUMN_THUMBNAIL_LINK + TEXT
+                        + "," + COLUMN_THUMBNAIL_HEIGHT + INTEGER
+                        + "," + COLUMN_THUMBNAIL_WIDTH + INTEGER
                         + " );";
     }
 

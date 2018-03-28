@@ -24,8 +24,19 @@ public abstract class Image implements Parcelable {
 
     public abstract Integer width();
 
-    public static Image create(String contextLink, Integer height, Integer width) {
-        return new AutoValue_Image(contextLink, height, width);
+    @ColumnName(Db.ImageTable.COLUMN_THUMBNAIL_LINK)
+    public abstract String thumbnailLink();
+
+    @ColumnName(Db.ImageTable.COLUMN_THUMBNAIL_HEIGHT)
+    public abstract Integer thumbnailHeight();
+
+    @ColumnName(Db.ImageTable.COLUMN_THUMBNAIL_WIDTH)
+    public abstract Integer thumbnailWidth();
+
+
+    public static Image create(String contextLink, Integer height, Integer width,
+                               String thumbnailLink, Integer thumbnailHeight, Integer thumbnailWidth) {
+        return new AutoValue_Image(contextLink, height, width, thumbnailLink, thumbnailHeight, thumbnailWidth);
     }
 
     public static Image create(Cursor cursor) {
