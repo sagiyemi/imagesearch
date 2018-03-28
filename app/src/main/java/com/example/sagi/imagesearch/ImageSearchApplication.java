@@ -15,7 +15,9 @@ public final class ImageSearchApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        mMainComponent = DaggerImageSearchComponent.create();
+        if (mMainComponent == null) {
+            mMainComponent = DaggerImageSearchComponent.create();
+        }
     }
 
     public static ImageSearchComponent getComponent(Context context) {
