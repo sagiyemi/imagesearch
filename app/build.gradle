@@ -23,6 +23,7 @@ dependencies {
     final INTERCEPTOR_VERSION = '3.8.1'
     final DAGGER_VERSION = '2.13'
     final ANDROID_SUPPORT_VERSION = '27.1.0'
+    final ANDROID_ARCH_PERSISTENCE_VERSION = '1.0.0'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
@@ -48,6 +49,8 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 
     implementation 'com.squareup.sqlbrite3:sqlbrite:3.2.0'
+    implementation "android.arch.persistence:db:$ANDROID_ARCH_PERSISTENCE_VERSION"
+    implementation "android.arch.persistence:db-framework:$ANDROID_ARCH_PERSISTENCE_VERSION"
 
 
 }
