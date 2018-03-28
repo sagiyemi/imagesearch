@@ -3,7 +3,7 @@ package com.example.sagi.imagesearch;
 import android.app.Application;
 
 import com.example.sagi.imagesearch.data.local.DbModule;
-import com.example.sagi.imagesearch.data.remote.GoogleImageSearchService;
+import com.example.sagi.imagesearch.data.remote.GoogleImageSearch;
 
 import javax.inject.Singleton;
 
@@ -35,8 +35,8 @@ public final class ImageSearchModule {
 
     @Provides
     @Singleton
-    GoogleImageSearchService provideGoogleImageSearchService() {
-        return new GoogleImageSearchService();
+    GoogleImageSearch provideGoogleImageSearch() {
+        return GoogleImageSearch.Factory.makeGoogleImageSearch(mApplication);
     }
 
 }

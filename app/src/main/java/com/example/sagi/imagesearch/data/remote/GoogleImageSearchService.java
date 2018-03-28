@@ -2,61 +2,36 @@ package com.example.sagi.imagesearch.data.remote;
 
 import android.util.Log;
 
-import com.example.sagi.imagesearch.BuildConfig;
 import com.example.sagi.imagesearch.data.model.GoogleImage;
-import com.example.sagi.imagesearch.data.model.ImageSearchResponse;
 
-import java.io.IOException;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Observable;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by sagiyemini on 24/03/2018.
  */
 
+@Singleton
 public class GoogleImageSearchService {
-
-    public static final String API_URL = "https://www.googleapis.com";
 
     private final GoogleImageSearch mImageSearch;
 
-    public GoogleImageSearchService() {
-
-        Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
-                .baseUrl(API_URL)
-                .addConverterFactory(GsonConverterFactory.create());
-
-
-        OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
-        if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-            httpClientBuilder.addInterceptor(logging);
-        }
-
-        retrofitBuilder.client(httpClientBuilder.build());
-
-        this.mImageSearch = retrofitBuilder.build().create(GoogleImageSearch.class);
+    @Inject
+    public GoogleImageSearchService(GoogleImageSearch googleImageSearch) {
+        this.mImageSearch = googleImageSearch;
     }
 
     public Observable<List<GoogleImage>> getImages() {
-        Call<ImageSearchResponse> example = mImageSearch.getImages(10, 1, "example");
-        ImageSearchResponse imageSearchResponse = null;
-        try {
-            imageSearchResponse = example.execute().body();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        for (GoogleImage image : imageSearchResponse.images) {
-            Log.d("ImageSearch", "Image " + image);
-        }
-        return Observable.just(imageSearchResponse.images);
+        return mImageSearch.getImages(10, 1, "example")
+                .map(imageSearchResponse -> {
+                    Log.d("Service", "Got " + imageSearchResponse.images.size());
+                    return imageSearchResponse.images;
+
+                });
     }
 
 
