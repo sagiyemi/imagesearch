@@ -1,11 +1,11 @@
-package com.example.sagi.imagesearch;
+package com.example.sagi.imagesearch.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.sagi.imagesearch.R;
 import com.example.sagi.imagesearch.service.GoogleImageSearchService;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
