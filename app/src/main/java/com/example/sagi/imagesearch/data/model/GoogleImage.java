@@ -15,8 +15,10 @@ public abstract class GoogleImage implements Parcelable {
 
     public abstract String title();
 
-    public static GoogleImage create(String title) {
-        return new AutoValue_GoogleImage(title);
+    public abstract Image image();
+
+    public static GoogleImage create(String title, Image image) {
+        return new AutoValue_GoogleImage(title, image);
     }
 
     public static TypeAdapter<GoogleImage> typeAdapter(Gson gson) {
