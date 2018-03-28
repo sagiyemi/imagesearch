@@ -19,19 +19,21 @@ public class Db {
         // TODO: ID, Primary key, page number, ordinal?
 
         public static final String COLUMN_TITLE = "title";
+        public static final String COLUMN_LINK = "link";
         public static final String COLUMN_SEARCH_TERM = "search_term";
         public static final String COLUMN_PAGE_NUMBER = "page_number";
+        public static final String COLUMN_CONTEXT_LINK = "context_link";
         public static final String COLUMN_HEIGHT = "height";
         public static final String COLUMN_WIDTH = "width";
-        public static final String COLUMN_CONTEXT_LINK = "context_link";
 
         public static final String CREATE =
                 "CREATE TABLE " + TABLE_NAME
                         + " ("
-                        + COLUMN_CONTEXT_LINK + TEXT + PRIMARY_KEY
-                        + "," + COLUMN_SEARCH_TERM + TEXT
+                         + COLUMN_SEARCH_TERM + TEXT
                         + "," + COLUMN_PAGE_NUMBER + INTEGER
+                        + "," + COLUMN_LINK + TEXT + PRIMARY_KEY
                         + "," + COLUMN_TITLE + TEXT
+                        + "," + COLUMN_CONTEXT_LINK + TEXT
                         + "," + COLUMN_HEIGHT + INTEGER
                         + "," + COLUMN_WIDTH + INTEGER
                         + " );";

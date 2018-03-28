@@ -18,11 +18,13 @@ public abstract class ImageEntity implements Parcelable {
 
     public abstract String title();
 
+    public abstract String link();
+
     @ColumnAdapter(ImageAdapter.class)
     public abstract Image image();
 
-    public static ImageEntity create(String title, Image image) {
-        return new AutoValue_ImageEntity(title, image);
+    public static ImageEntity create(String title, String link, Image image) {
+        return new AutoValue_ImageEntity(title, link, image);
     }
 
     public static ImageEntity create(Cursor cursor) {

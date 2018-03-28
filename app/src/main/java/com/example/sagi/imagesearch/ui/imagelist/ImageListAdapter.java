@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.sagi.imagesearch.R;
 import com.example.sagi.imagesearch.data.model.ImageEntity;
 
@@ -42,8 +43,12 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         ImageEntity imageEntity = mItems.get(position);
+
         holder.mImageTitle.setText(imageEntity.title());
-        // TODO: Bind image
+
+        Glide.with(holder.itemView.getContext())
+                .load(imageEntity.link())
+                .into(holder.mImageView);
     }
 
     @Override

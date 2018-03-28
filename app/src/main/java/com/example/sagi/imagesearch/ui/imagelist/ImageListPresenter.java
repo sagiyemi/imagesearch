@@ -17,6 +17,7 @@ import io.reactivex.disposables.Disposable;
 public class ImageListPresenter extends BasePresenter<ImageListMvpView> {
 
     private static final String SEARCH_TERM = "example";
+    private static final int INITIAL_PAGE_NUMBER = 1;
     private int mCurrentPage = 1;
 
     private final DataManager mDataManager;
@@ -32,7 +33,7 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> {
     public void attachView(ImageListMvpView mvpView) {
         super.attachView(mvpView);
 
-        syncImageList();
+        syncImageListPage(INITIAL_PAGE_NUMBER);
         getImageList();
     }
 
@@ -42,9 +43,9 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> {
         super.detachView();
     }
 
-    private void syncImageList() {
-        Log.d("ImageListPresenter", "syncImageList");
-        mDataManager.syncImagesPage(SEARCH_TERM, mCurrentPage)
+    private void syncImageListPage(int pageNumber) {
+        Log.d("ImageListPresenter", "syncImageListPage");
+        mDataManager.syncImagesPage(SEARCH_TERM, pageNumber)
                 .compose(Util.applySchedulers())
                 .subscribe();
     }
