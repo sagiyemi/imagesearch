@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.sagi.imagesearch.data.local.DatabaseHelper;
-import com.example.sagi.imagesearch.data.model.GoogleImage;
+import com.example.sagi.imagesearch.data.model.ImageEntity;
 import com.example.sagi.imagesearch.data.remote.GoogleImageSearchService;
 
 import java.util.List;
@@ -37,13 +37,13 @@ public class DataManager {
         int offset = (pageNumber - 1) * PAGE_SIZE + 1;
         return mGoogleImageSearchService.getImages(searchTerm, offset, PAGE_SIZE)
                 .map(images -> {
-                    mDatabaseHelper.setGoogleImages(images, searchTerm, pageNumber);
+                    mDatabaseHelper.setImages(images, searchTerm, pageNumber);
                     return true;
                 });
     }
 
-    public Observable<List<GoogleImage>> getImages(@NonNull String searchTerm) {
-        return mDatabaseHelper.getGoogleImages(searchTerm);
+    public Observable<List<ImageEntity>> getImages(@NonNull String searchTerm) {
+        return mDatabaseHelper.getImages(searchTerm);
     }
 
 }

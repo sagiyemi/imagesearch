@@ -12,9 +12,9 @@ public class Db {
 
     public Db() { }
 
-    public static final class GoogleImageTable {
+    public static final class ImageTable {
 
-        public static final String TABLE_NAME = "google_image";
+        public static final String TABLE_NAME = "image";
 
         // TODO: ID, Primary key, page number, ordinal?
 

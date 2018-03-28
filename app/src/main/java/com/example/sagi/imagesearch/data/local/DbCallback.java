@@ -33,7 +33,7 @@ public class DbCallback extends SupportSQLiteOpenHelper.Callback {
     private void createTables(SupportSQLiteDatabase db) {
         db.beginTransaction();
         try {
-            db.execSQL(Db.GoogleImageTable.CREATE);
+            db.execSQL(Db.ImageTable.CREATE);
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();

@@ -11,9 +11,9 @@ import java.util.List;
 public class ImageSearchResponse {
 
     @SerializedName("items")
-    public final List<GoogleImage> images;
+    public final List<ImageEntity> images;
 
-    public ImageSearchResponse(List<GoogleImage> images) {
+    public ImageSearchResponse(List<ImageEntity> images) {
         this.images = images;
     }
 

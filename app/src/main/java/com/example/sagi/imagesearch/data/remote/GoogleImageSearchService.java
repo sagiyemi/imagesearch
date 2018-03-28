@@ -3,7 +3,7 @@ package com.example.sagi.imagesearch.data.remote;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.sagi.imagesearch.data.model.GoogleImage;
+import com.example.sagi.imagesearch.data.model.ImageEntity;
 
 import java.util.List;
 
@@ -26,11 +26,11 @@ public class GoogleImageSearchService {
         this.mImageSearch = googleImageSearch;
     }
 
-    public Observable<List<GoogleImage>> getImages(@NonNull String searchTerm, int offset, int numberOfItems) {
+    public Observable<List<ImageEntity>> getImages(@NonNull String searchTerm, int offset, int numberOfItems) {
         return mImageSearch.getImages(numberOfItems, offset, searchTerm)
                 .map(imageSearchResponse -> {
-                    List<GoogleImage> images = imageSearchResponse.images;
-                    for (GoogleImage image : images) {
+                    List<ImageEntity> images = imageSearchResponse.images;
+                    for (ImageEntity image : images) {
                         Log.d("Service", "Image" + image);
                     }
                     Log.d("Service", "Got " + images.size());

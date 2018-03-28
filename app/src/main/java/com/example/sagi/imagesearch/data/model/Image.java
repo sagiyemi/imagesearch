@@ -17,7 +17,7 @@ import com.google.gson.TypeAdapter;
 @AutoValue
 public abstract class Image implements Parcelable {
 
-    @ColumnName(Db.GoogleImageTable.COLUMN_CONTEXT_LINK)
+    @ColumnName(Db.ImageTable.COLUMN_CONTEXT_LINK)
     public abstract String contextLink();
 
     public abstract Integer height();

@@ -14,23 +14,23 @@ import com.google.gson.TypeAdapter;
  */
 
 @AutoValue
-public abstract class GoogleImage implements Parcelable {
+public abstract class ImageEntity implements Parcelable {
 
     public abstract String title();
 
     @ColumnAdapter(ImageAdapter.class)
     public abstract Image image();
 
-    public static GoogleImage create(String title, Image image) {
-        return new AutoValue_GoogleImage(title, image);
+    public static ImageEntity create(String title, Image image) {
+        return new AutoValue_ImageEntity(title, image);
     }
 
-    public static GoogleImage create(Cursor cursor) {
-        return AutoValue_GoogleImage.createFromCursor(cursor);
+    public static ImageEntity create(Cursor cursor) {
+        return AutoValue_ImageEntity.createFromCursor(cursor);
     }
 
-    public static TypeAdapter<GoogleImage> typeAdapter(Gson gson) {
-        return new AutoValue_GoogleImage.GsonTypeAdapter(gson);
+    public static TypeAdapter<ImageEntity> typeAdapter(Gson gson) {
+        return new AutoValue_ImageEntity.GsonTypeAdapter(gson);
     }
 
     public abstract ContentValues toContentValues();
