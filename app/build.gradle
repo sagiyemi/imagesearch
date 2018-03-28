@@ -64,6 +64,8 @@ dependencies {
     annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
     annotationProcessor 'com.ryanharter.auto.value:auto-value-gson:0.7.0'
     compile 'com.ryanharter.auto.value:auto-value-gson-annotations:0.7.0'
+    annotationProcessor 'com.gabrielittner.auto.value:auto-value-cursor:1.1.0'
+    compile 'com.gabrielittner.auto.value:auto-value-cursor-annotations:1.1.0'
 
 
 }
