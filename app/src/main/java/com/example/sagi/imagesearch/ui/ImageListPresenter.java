@@ -8,6 +8,8 @@ import com.example.sagi.imagesearch.util.Util;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by sagiyemini on 28/03/2018.
  */
@@ -18,6 +20,8 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> {
     private int mCurrentPage = 1;
 
     private final DataManager mDataManager;
+
+    private Disposable mGetImagesDisposable;
 
     @Inject
     public ImageListPresenter(DataManager dataManager) {
@@ -32,6 +36,12 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> {
         getImageList();
     }
 
+    @Override
+    public void detachView() {
+        Util.dispose(mGetImagesDisposable);
+        super.detachView();
+    }
+
     private void syncImageList() {
         Log.d("ImageListPresenter", "syncImageList");
         mDataManager.syncImagesPage(SEARCH_TERM, mCurrentPage)
@@ -40,11 +50,11 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> {
     }
 
     private void getImageList() {
-        mDataManager.getImages(SEARCH_TERM)
+        Util.dispose(mGetImagesDisposable);
+        mGetImagesDisposable = mDataManager.getImages(SEARCH_TERM)
                 .compose(Util.applySchedulers())
                 .subscribe(images -> {
-                    Log.d("ImageListPresenter", "Images " + images);
+                    if (isViewAttached()) getMvpView().displayImages(images);
                 });
-
     }
 }
