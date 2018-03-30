@@ -46,4 +46,8 @@ public class DataManager {
         return mDatabaseHelper.getImages(searchTerm);
     }
 
+    public Observable<ImageEntity> getImage(@NonNull String imageId) {
+        return mDatabaseHelper.getImage(imageId);
+    }
+
 }

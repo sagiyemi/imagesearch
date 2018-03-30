@@ -1,4 +1,4 @@
-package com.example.sagi.imagesearch.ui.imagelist;
+package com.example.sagi.imagesearch.ui.image.list;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,7 +22,7 @@ import javax.inject.Inject;
  * Created by sagiyemini on 28/03/2018.
  */
 
-public class ImageListFragment extends BaseFragment implements ImageListMvpView {
+public class ImageListFragment extends BaseFragment implements ImageListMvpView, ImageListAdapter.OnImageClickedListener {
 
     @Inject ImageListPresenter mImageListPresenter;
 
@@ -48,6 +48,9 @@ public class ImageListFragment extends BaseFragment implements ImageListMvpView 
         if (mImageListAdapter == null) {
             mImageListAdapter = new ImageListAdapter();
         }
+
+        mImageListAdapter.setOnImageClickedListener(this);
+
         RecyclerView recyclerView = view.findViewById(R.id.image_list_recycler_view);
         recyclerView.setAdapter(mImageListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -64,5 +67,10 @@ public class ImageListFragment extends BaseFragment implements ImageListMvpView 
     @Override
     public void displayImages(List<ImageEntity> images) {
         mImageListAdapter.setImages(images);
+    }
+
+    @Override
+    public void onImageClicked(ImageEntity imageEntity) {
+        mImageListPresenter.onImageClicked(imageEntity);
     }
 }

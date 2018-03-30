@@ -1,9 +1,11 @@
-package com.example.sagi.imagesearch.ui.imagelist;
+package com.example.sagi.imagesearch.ui.image.list;
 
-import android.util.Log;
+import android.support.annotation.NonNull;
 
 import com.example.sagi.imagesearch.data.DataManager;
+import com.example.sagi.imagesearch.data.model.ImageEntity;
 import com.example.sagi.imagesearch.ui.base.BasePresenter;
+import com.example.sagi.imagesearch.ui.image.ImageState;
 import com.example.sagi.imagesearch.util.Util;
 
 import javax.inject.Inject;
@@ -21,12 +23,14 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> {
     private int mCurrentPage = 1;
 
     private final DataManager mDataManager;
+    private final ImageState mImageState;
 
     private Disposable mGetImagesDisposable;
 
     @Inject
-    public ImageListPresenter(DataManager dataManager) {
+    public ImageListPresenter(DataManager dataManager, ImageState imageState) {
         this.mDataManager = dataManager;
+        this.mImageState = imageState;
     }
 
     @Override
@@ -44,7 +48,6 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> {
     }
 
     private void syncImageListPage(int pageNumber) {
-        Log.d("ImageListPresenter", "syncImageListPage");
         mDataManager.syncImagesPage(SEARCH_TERM, pageNumber)
                 .compose(Util.applySchedulers())
                 .subscribe();
@@ -57,5 +60,9 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> {
                 .subscribe(images -> {
                     if (isViewAttached()) getMvpView().displayImages(images);
                 });
+    }
+
+    public void onImageClicked(@NonNull ImageEntity imageEntity) {
+        mImageState.selectImage(imageEntity);
     }
 }

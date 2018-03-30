@@ -55,4 +55,11 @@ public class DatabaseHelper {
                 .mapToList(ImageEntity::create);
     }
 
+    public Observable<ImageEntity> getImage(@NonNull String imageId) {
+        return mDb.createQuery(Db.ImageTable.TABLE_NAME,
+                "SELECT * FROM " + Db.ImageTable.TABLE_NAME
+                        + " WHERE " + Db.ImageTable.COLUMN_LINK + " =? "
+                        + " LIMIT 1 ", imageId)
+                .mapToOne(ImageEntity::create);
+    }
 }

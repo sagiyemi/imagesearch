@@ -1,4 +1,4 @@
-package com.example.sagi.imagesearch.ui.imagelist;
+package com.example.sagi.imagesearch.ui.image.list;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -29,7 +29,12 @@ import java.util.List;
 
 public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.ImageViewHolder> {
 
+    public interface OnImageClickedListener {
+        void onImageClicked(ImageEntity imageEntity);
+    }
+
     private List<ImageEntity> mItems;
+    private OnImageClickedListener mListener;
 
     public ImageListAdapter() {
         mItems = new ArrayList<>();
@@ -39,6 +44,10 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
         mItems = images;
         notifyDataSetChanged();
         // TODO: Change notifyDataSetChanged
+    }
+
+    public void setOnImageClickedListener(OnImageClickedListener listener) {
+        mListener = listener;
     }
 
     @NonNull
@@ -51,6 +60,13 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         ImageEntity imageEntity = mItems.get(position);
+
+        holder.itemView.setOnClickListener(view -> {
+            if (mListener != null) {
+                mListener.onImageClicked(imageEntity);
+            }
+        });
+
         Context context = holder.itemView.getContext();
         final View progressBar = holder.mProgressBar;
 

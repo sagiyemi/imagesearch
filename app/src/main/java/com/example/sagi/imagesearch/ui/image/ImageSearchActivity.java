@@ -1,9 +1,9 @@
-package com.example.sagi.imagesearch.ui;
+package com.example.sagi.imagesearch.ui.image;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.sagi.imagesearch.ui.imagelist.ImageListFragment;
+import com.example.sagi.imagesearch.ui.image.manager.ImageManagerFragment;
 
 public class ImageSearchActivity extends AppCompatActivity {
 
@@ -13,7 +13,7 @@ public class ImageSearchActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(android.R.id.content, ImageListFragment.newInstance())
+                    .add(android.R.id.content, ImageManagerFragment.newInstance())
                     .commit();
         }
     }
