@@ -50,4 +50,14 @@ public class ImageManagerPresenter extends BasePresenter<ImageManagerMvpView> {
                     }
                 });
     }
+
+    public boolean onBackPressed() {
+        // If image selected remove selection (navigate back), else don't handle back
+        if (mImageState.isImageSelected()) {
+            mImageState.removeImageSelection();
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

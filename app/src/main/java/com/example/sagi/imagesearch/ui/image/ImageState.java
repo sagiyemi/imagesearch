@@ -38,4 +38,8 @@ public final class ImageState {
         return mSelectedImageId;
     }
 
+    public boolean isImageSelected() {
+        return !NO_IMAGE_SELECTED.equals(mSelectedImageId.getValue());
+    }
+
 }

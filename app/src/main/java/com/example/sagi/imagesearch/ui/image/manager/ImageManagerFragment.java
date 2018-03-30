@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sagi.imagesearch.R;
+import com.example.sagi.imagesearch.ui.base.BackPressedHandler;
 import com.example.sagi.imagesearch.ui.base.BaseFragment;
 import com.example.sagi.imagesearch.ui.image.details.ImageDetailsFragment;
 import com.example.sagi.imagesearch.ui.image.list.ImageListFragment;
@@ -19,7 +20,7 @@ import javax.inject.Inject;
  * Created by sagiyemini on 30/03/2018.
  */
 
-public class ImageManagerFragment extends BaseFragment implements ImageManagerMvpView {
+public class ImageManagerFragment extends BaseFragment implements ImageManagerMvpView, BackPressedHandler {
 
     @Inject ImageManagerPresenter mImageManagerPresenter;
 
@@ -70,5 +71,10 @@ public class ImageManagerFragment extends BaseFragment implements ImageManagerMv
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.image_details_container, ImageDetailsFragment.newInstance())
                 .commit();
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        return mImageManagerPresenter.onBackPressed();
     }
 }
