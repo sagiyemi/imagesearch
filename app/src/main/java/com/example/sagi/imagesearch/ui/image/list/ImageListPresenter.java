@@ -1,6 +1,7 @@
 package com.example.sagi.imagesearch.ui.image.list;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.example.sagi.imagesearch.data.DataManager;
 import com.example.sagi.imagesearch.data.model.ImageEntity;
@@ -18,6 +19,7 @@ import io.reactivex.disposables.Disposable;
 
 public class ImageListPresenter extends BasePresenter<ImageListMvpView> {
 
+    private static final String TAG = "ImageListPresenter";
     private static final String SEARCH_TERM = "example";
     private static final int INITIAL_PAGE_NUMBER = 1;
     private int mCurrentPage = 1;
@@ -50,7 +52,8 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> {
     private void syncImageListPage(int pageNumber) {
         mDataManager.syncImagesPage(SEARCH_TERM, pageNumber)
                 .compose(Util.applySchedulers())
-                .subscribe();
+                .subscribe(completed -> Log.d(TAG, "Loaded image list page " + pageNumber),
+                        error -> Log.e(TAG, "Failed to get image list " + error.getMessage()));
     }
 
     private void getImageList() {

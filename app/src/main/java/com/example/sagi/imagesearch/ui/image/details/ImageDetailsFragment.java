@@ -55,6 +55,7 @@ public class ImageDetailsFragment extends BaseFragment implements ImageDetailsMv
 
     @Override
     public void displayImage(@NonNull ImageEntity imageEntity) {
+        // TODO: Display link instead
         Glide.with(this)
                 .load(imageEntity.image().thumbnailLink())
                 .into(mImageView);
