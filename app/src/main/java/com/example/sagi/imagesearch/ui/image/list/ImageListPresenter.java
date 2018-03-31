@@ -22,13 +22,15 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> implemen
 
     private static final String TAG = "ImageListPresenter";
     private static final String SEARCH_TERM = "example";
+    private static final int MIN_DISTANCE_FROM_END_OF_THE_LIST_TO_SYNC_NEXT_PAGE = 5;
     private static final int INITIAL_PAGE_NUMBER = 1;
-    private int mCurrentPage = 1;
+    private int mLastPageSyncedSuccessfully;
 
     private final DataManager mDataManager;
     private final ImageState mImageState;
 
     private Disposable mGetImagesDisposable;
+    private Disposable mSyncImagesDisposable;
 
     @Inject
     public ImageListPresenter(DataManager dataManager, ImageState imageState) {
@@ -51,10 +53,19 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> implemen
     }
 
     private void syncImageListPage(int pageNumber) {
-        mDataManager.syncImagesPage(SEARCH_TERM, pageNumber)
-                .compose(Util.applySchedulers())
-                .subscribe(completed -> Log.d(TAG, "Loaded image list page " + pageNumber),
-                        error -> Log.e(TAG, "Failed to get image list " + error.getMessage()));
+        // On first page stop current sync
+        if (pageNumber == INITIAL_PAGE_NUMBER) {
+            Util.dispose(mSyncImagesDisposable);
+        }
+        if (!isSyncInProgress()) {
+            mSyncImagesDisposable = mDataManager.syncImagesPage(SEARCH_TERM, pageNumber)
+                    .compose(Util.applySchedulers())
+                    .subscribe(completed -> {
+                                mLastPageSyncedSuccessfully = pageNumber;
+                                Log.d(TAG, "Loaded image list page " + pageNumber);
+                            },
+                            error -> Log.e(TAG, "Failed to get image list " + error.getMessage(), error));
+        }
     }
 
     private void getImageList() {
@@ -72,5 +83,13 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> implemen
 
     @Override
     public void onScrolled(int itemCount, int lastVisibleItemPosition, boolean isScrollingDown) {
+        int distanceFromEndOfTheList = itemCount - lastVisibleItemPosition;
+        if (isScrollingDown && distanceFromEndOfTheList < MIN_DISTANCE_FROM_END_OF_THE_LIST_TO_SYNC_NEXT_PAGE && !isSyncInProgress()) {
+            syncImageListPage(mLastPageSyncedSuccessfully + 1);
+        }
+    }
+
+    private boolean isSyncInProgress() {
+        return mSyncImagesDisposable != null && !mSyncImagesDisposable.isDisposed();
     }
 }
