@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.example.sagi.imagesearch.R;
 import com.example.sagi.imagesearch.data.model.ImageEntity;
 import com.example.sagi.imagesearch.ui.base.BaseFragment;
+import com.example.sagi.imagesearch.ui.base.ListScrollListener;
 
 import java.util.List;
 
@@ -54,6 +55,8 @@ public class ImageListFragment extends BaseFragment implements ImageListMvpView,
         RecyclerView recyclerView = view.findViewById(R.id.image_list_recycler_view);
         recyclerView.setAdapter(mImageListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerView.addOnScrollListener(new ListScrollListener(mImageListPresenter));
 
         return view;
     }

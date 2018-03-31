@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.sagi.imagesearch.data.DataManager;
 import com.example.sagi.imagesearch.data.model.ImageEntity;
 import com.example.sagi.imagesearch.ui.base.BasePresenter;
+import com.example.sagi.imagesearch.ui.base.ListScrollListener;
 import com.example.sagi.imagesearch.ui.image.ImageState;
 import com.example.sagi.imagesearch.util.Util;
 
@@ -17,7 +18,7 @@ import io.reactivex.disposables.Disposable;
  * Created by sagiyemini on 28/03/2018.
  */
 
-public class ImageListPresenter extends BasePresenter<ImageListMvpView> {
+public class ImageListPresenter extends BasePresenter<ImageListMvpView> implements ListScrollListener.PaginationListener {
 
     private static final String TAG = "ImageListPresenter";
     private static final String SEARCH_TERM = "example";
@@ -67,5 +68,9 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> {
 
     public void onImageClicked(@NonNull ImageEntity imageEntity) {
         mImageState.selectImage(imageEntity);
+    }
+
+    @Override
+    public void onScrolled(int itemCount, int lastVisibleItemPosition, boolean isScrollingDown) {
     }
 }
