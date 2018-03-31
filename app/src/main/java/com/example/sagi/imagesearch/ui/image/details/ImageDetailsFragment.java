@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.example.sagi.imagesearch.R;
 import com.example.sagi.imagesearch.data.model.ImageEntity;
 import com.example.sagi.imagesearch.ui.base.BaseFragment;
+import com.example.sagi.imagesearch.ui.image.ImageLoadedListener;
 
 import javax.inject.Inject;
 
@@ -24,6 +25,7 @@ public class ImageDetailsFragment extends BaseFragment implements ImageDetailsMv
     @Inject ImageDetailsPresenter mImageDetailsPresenter;
 
     private ImageView mImageView;
+    private View mProgressBar;
 
     public static ImageDetailsFragment newInstance() {
         return new ImageDetailsFragment();
@@ -48,17 +50,17 @@ public class ImageDetailsFragment extends BaseFragment implements ImageDetailsMv
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.image_details_fragment, container, false);
 
-        mImageView = view.findViewById(R.id.image_view);
+        mImageView = view.findViewById(R.id.image_image_view);
+        mProgressBar = view.findViewById(R.id.image_progress_bar);
 
         return view;
     }
 
     @Override
     public void displayImage(@NonNull ImageEntity imageEntity) {
-        // TODO: Display link instead
         Glide.with(this)
-                .load(imageEntity.image().thumbnailLink())
+                .load(imageEntity.link())
+                .listener(new ImageLoadedListener(mProgressBar))
                 .into(mImageView);
-
     }
 }

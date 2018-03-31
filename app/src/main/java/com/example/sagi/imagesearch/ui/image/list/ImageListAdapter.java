@@ -1,9 +1,7 @@
 package com.example.sagi.imagesearch.ui.image.list;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.example.sagi.imagesearch.R;
 import com.example.sagi.imagesearch.data.model.ImageEntity;
+import com.example.sagi.imagesearch.ui.image.ImageLoadedListener;
 import com.example.sagi.imagesearch.util.Util;
 
 import java.util.ArrayList;
@@ -83,19 +78,7 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
         // Display thumbnail for speed, full quality image will be displayed in a dedicated screen
         Glide.with(context)
                 .load(imageEntity.image().thumbnailLink())
-                .listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        Util.goneView(progressBar);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        Util.goneView(progressBar);
-                        return false;
-                    }
-                })
+                .listener(new ImageLoadedListener(progressBar))
                 .into(holder.mImageView);
     }
 
@@ -114,7 +97,7 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
             super(itemView);
             mImageTitle = itemView.findViewById(R.id.image_title);
             mImageView = itemView.findViewById(R.id.image_image_view);
-            mProgressBar = itemView.findViewById(R.id.progress_bar);
+            mProgressBar = itemView.findViewById(R.id.image_progress_bar);
         }
     }
 }
