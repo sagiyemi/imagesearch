@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.sagi.imagesearch.R;
 import com.example.sagi.imagesearch.data.model.ImageEntity;
@@ -70,6 +71,11 @@ public class ImageListFragment extends BaseFragment implements ImageListMvpView,
     @Override
     public void displayImages(List<ImageEntity> images) {
         mImageListAdapter.setImages(images);
+    }
+
+    @Override
+    public void displayError() {
+        Toast.makeText(getContext(), R.string.failed_to_get_more_results, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -13,4 +13,6 @@ public interface ImageListMvpView extends MvpView {
 
     void displayImages(List<ImageEntity> images);
 
+    void displayError();
+
 }

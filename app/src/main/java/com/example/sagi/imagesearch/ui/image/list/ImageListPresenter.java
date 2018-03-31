@@ -65,7 +65,10 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> implemen
                                 mLastPageSyncedSuccessfully = pageNumber;
                                 Log.d(TAG, "Loaded image list page " + pageNumber);
                             },
-                            error -> Log.e(TAG, "Failed to get image list " + error.getMessage(), error));
+                            error -> {
+                                Log.e(TAG, "Failed to get image list " + error.getMessage(), error);
+                                if (isViewAttached()) getMvpView().displayError();
+                            });
         }
     }
 
