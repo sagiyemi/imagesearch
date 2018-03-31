@@ -1,7 +1,6 @@
 package com.example.sagi.imagesearch.data;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.example.sagi.imagesearch.data.local.DatabaseHelper;
 import com.example.sagi.imagesearch.data.model.ImageEntity;
@@ -21,6 +20,7 @@ import io.reactivex.Observable;
 @Singleton
 public class DataManager {
 
+    public static final int INITIAL_IMAGE_SEARCH_PAGE_NUMBER = 1;
     private static final int PAGE_SIZE = 10;
 
     private final GoogleImageSearchService mGoogleImageSearchService;
@@ -33,11 +33,11 @@ public class DataManager {
     }
 
     public Observable<Boolean> syncImagesPage(String searchTerm, int pageNumber) {
-        Log.d("DataManager", "syncImagesPage");
         int offset = (pageNumber - 1) * PAGE_SIZE + 1;
+        boolean deletePreviousData = pageNumber == INITIAL_IMAGE_SEARCH_PAGE_NUMBER;
         return mGoogleImageSearchService.getImages(searchTerm, offset, PAGE_SIZE)
                 .map(images -> {
-                    mDatabaseHelper.setImages(images, searchTerm, pageNumber);
+                    mDatabaseHelper.setImages(images, searchTerm, pageNumber, deletePreviousData);
                     return true;
                 });
     }

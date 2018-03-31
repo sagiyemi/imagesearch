@@ -14,6 +14,8 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
 
+import static com.example.sagi.imagesearch.data.DataManager.INITIAL_IMAGE_SEARCH_PAGE_NUMBER;
+
 /**
  * Created by sagiyemini on 28/03/2018.
  */
@@ -23,7 +25,6 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> implemen
     private static final String TAG = "ImageListPresenter";
     private static final String SEARCH_TERM = "example";
     private static final int MIN_DISTANCE_FROM_END_OF_THE_LIST_TO_SYNC_NEXT_PAGE = 5;
-    private static final int INITIAL_PAGE_NUMBER = 1;
     private int mLastPageSyncedSuccessfully;
 
     private final DataManager mDataManager;
@@ -42,7 +43,7 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> implemen
     public void attachView(ImageListMvpView mvpView) {
         super.attachView(mvpView);
 
-        syncImageListPage(INITIAL_PAGE_NUMBER);
+        syncImageListPage(INITIAL_IMAGE_SEARCH_PAGE_NUMBER);
         getImageList();
     }
 
@@ -54,7 +55,7 @@ public class ImageListPresenter extends BasePresenter<ImageListMvpView> implemen
 
     private void syncImageListPage(int pageNumber) {
         // On first page stop current sync
-        if (pageNumber == INITIAL_PAGE_NUMBER) {
+        if (pageNumber == INITIAL_IMAGE_SEARCH_PAGE_NUMBER) {
             Util.dispose(mSyncImagesDisposable);
         }
         if (!isSyncInProgress()) {

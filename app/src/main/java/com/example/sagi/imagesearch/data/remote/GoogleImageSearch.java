@@ -33,7 +33,7 @@ public interface GoogleImageSearch {
         public static GoogleImageSearch makeGoogleImageSearch() {
 
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY
+            logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BASIC
                     : HttpLoggingInterceptor.Level.NONE);
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()

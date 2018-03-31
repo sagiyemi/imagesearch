@@ -29,13 +29,18 @@ public class DatabaseHelper {
         this.mDb = briteDatabase;
     }
 
-    public void setImages(List<ImageEntity> images, @NonNull String searchTerm, int pageNumber) {
+    public void setImages(List<ImageEntity> images, @NonNull String searchTerm, int pageNumber, boolean deletePreviousData) {
         // TODO: Extract to util bulk insert
         ContentValues extraContentValues = new ContentValues();
         extraContentValues.put(Db.ImageTable.COLUMN_SEARCH_TERM, searchTerm);
         extraContentValues.put(Db.ImageTable.COLUMN_PAGE_NUMBER, pageNumber);
         BriteDatabase.Transaction transaction = mDb.newTransaction();
         try {
+            if (deletePreviousData) {
+                mDb.delete(Db.ImageTable.TABLE_NAME,
+                        Db.ImageTable.COLUMN_SEARCH_TERM + " =? ", searchTerm);
+            }
+
             for (ImageEntity image : images) {
                 ContentValues contentValues = image.toContentValues();
                 // Append search term and page number
